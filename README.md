@@ -1,76 +1,78 @@
-## RILT-Starter (REACT INERTIA LARVEL TAILWIND)
-Project ini merupakan sebuah starter-kit atau project base dengan spesifikasi sebagai berikut:
+## Maintenance Operations App (Laravel + Inertia + React)
 
-TECH :
-- Larvel 11
-- Inertia.js
-- React.Js
-- Tailwind Css
+Project ini adalah refactor starter-kit menjadi aplikasi **Maintenance Operations** untuk tim maintenance harian dengan target **zero breakdown** dan pendekatan ISO 9001:2015:
 
-FITUR :
-- Theme Switcher (Dark & Light)
-- Bulk Delete Data
-- Responsive Design
-- Navigation by Roles & Permissions
-- SPA (Single Page Application)
+- **Process approach** (request → triage → WO → eksekusi → verifikasi → evaluasi)
+- **Risk-based thinking** (critical asset, critical spare part, overdue PM alert)
+- **Documented information** (WO, checklist, downtime, approval trail, RCA/CAPA)
+- **Performance evaluation** (KPI reliability)
+- **Continual improvement** (analisis trend dan tindakan perbaikan)
 
-## INSTALASI PROJECT
+## Stack
 
-Pastikan `git` sudah terinstall, kemudian jalankan semua perintah dibawah ini :
+- Laravel 11
+- Inertia.js + React
+- Tailwind CSS
+- Chart.js
+
+## Modul utama yang disiapkan
+
+1. Dashboard Operasional Maintenance
+2. Asset & Reliability
+3. Work Request & Work Order
+4. Preventive Maintenance
+5. Spare Part Control
+6. RCA / CAPA
+7. Reporting & KPI
+8. Administration (users, roles, permissions)
+
+## KPI inti (zero breakdown)
+
+- Breakdown count
+- Downtime hours
+- MTTR / MTBF
+- PM compliance
+- Emergency WO ratio
+- Repeat breakdown rate
+- Spare part stockout rate
+- Response time vs SLA
+
+## Jalankan project
+
+```bash
+cp .env.example .env
+composer install
+php artisan key:generate
+php artisan migrate --seed
+npm install
+npm run dev
+php artisan serve
 ```
-1. clone repository
-2. copy .env.example rename menjadi .env kemudian atur database di .env
-3. composer install
-4. php artisan key:generate
-5. npm install 
-6. npm run dev (pastikan selalu dijalankan diterminal)
-7. php artisan migrate --seed
-8. php artisan serve (pastikan selalu dijalankan diterminal)
-```
 
-## AKUN SEEDER
+## Akses default (seeder)
 
-```
-email : raf@dev.com
-password : password
-```
+- email: `raf@dev.com`
+- password: `password`
 
-## OVERVIEW APLIKASI
-<table>
-  <tr>
-        <td> 
-            <img src="https://imgur.com/lGLU18q.png" alt="dashboard-light">
-        </td>
-        <td> 
-            <img src="https://imgur.com/0iD1Cna.png" alt="dashboard-dark">
-        </td>
-   </tr>
-    <tr>    
-        <td>
-            <img src="https://imgur.com/k7YXFL7.png" alt="sidebar-light-close">
-        </td>
-        <td>
-            <img src="https://imgur.com/GFD8QwI.png" alt="sidebar-dropdown-link-light">
-        </td>
-    </tr>
-   <tr>
-        <td>
-             <img src="https://imgur.com/YPWeFco.png" alt="mobile-light-modal">
-        </td>
-        <td> 
-            <img src="https://imgur.com/yRBmDxZ.png" alt="mobile-light-sidebar">
-        </td>
-   </tr>    
-   <tr>
-       <td>
-           <img src="https://imgur.com/4QEzppS.png" alt="notification-dark">
-       </td>
-        <td>
-           <img src="https://imgur.com/mJ7dXu4.png" alt="mobile-notification-dark">
-       </td>
-   </tr>
-</table>
+## Catatan roadmap implementasi
 
+### Fase 1
+- Asset master
+- Work request
+- Work order
+- Dashboard dasar
+- Role access
 
-## LISENSI
-Aplikasi ini bersifat open source dapat digunakan oleh siapa pun dengan syarat tidak untuk di perjual belikan.
+### Fase 2
+- Preventive maintenance scheduler
+- Inspection checklist
+- Downtime tracking
+- Spare part control
+- Notification
+
+### Fase 3
+- RCA & CAPA
+- Reliability KPI lanjutan
+- Planner calendar
+- Mobile flow teknisi
+- Integrasi lintas sistem
