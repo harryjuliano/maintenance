@@ -1,70 +1,136 @@
 import { usePage } from '@inertiajs/react';
-import { IconCirclePlus, IconLayout2, IconTable, IconUserBolt, IconUserShield, IconUsers } from '@tabler/icons-react';
+import {
+    IconActivityHeartbeat,
+    IconAdjustments,
+    IconBuildingFactory2,
+    IconCalendarDue,
+    IconClipboardList,
+    IconLayout2,
+    IconPackages,
+    IconReportAnalytics,
+    IconRouteAltLeft,
+    IconTool,
+    IconUserBolt,
+    IconUserShield,
+    IconUsers,
+} from '@tabler/icons-react';
 import hasAnyPermission from './Permissions';
-import React from 'react'
+import React from 'react';
 
 export default function Menu() {
-
-    // define use page
     const { url } = usePage();
 
-    // define menu navigations
     const menuNavigation = [
         {
-            title: 'Overview',
+            title: 'Dashboard',
             permissions: hasAnyPermission(['dashboard-access']),
             details: [
                 {
-                    title : 'Dashboard',
-                    href : '/apps/dashboard',
-                    active: url.startsWith('/apps/dashboard') ? true : false,
-                    icon : <IconLayout2 size={20} strokeWidth={1.5}/>,
-                    permissions:  hasAnyPermission(['dashboard-access']),
+                    title: 'Maintenance Overview',
+                    href: '/apps/dashboard',
+                    active: url.startsWith('/apps/dashboard'),
+                    icon: <IconLayout2 size={20} strokeWidth={1.5} />,
+                    permissions: hasAnyPermission(['dashboard-access']),
                 },
-            ]
+                {
+                    title: 'Blueprint & Roadmap',
+                    href: '/apps/maintenance-blueprint',
+                    active: url.startsWith('/apps/maintenance-blueprint'),
+                    icon: <IconRouteAltLeft size={20} strokeWidth={1.5} />,
+                    permissions: hasAnyPermission(['dashboard-access']),
+                },
+            ],
         },
         {
-            title: 'User Management',
-            permissions: hasAnyPermission(['permissions-access']) || hasAnyPermission(['roles-access']) || hasAnyPermission(['users-access']),
-            details : [
+            title: 'Operations',
+            permissions: hasAnyPermission(['dashboard-access']),
+            details: [
                 {
-                    title : 'Hak Akses',
-                    href : '/apps/permissions',
-                    active: url.startsWith('/apps/permissions') ? true : false,
-                    icon : <IconUserBolt size={20} strokeWidth={1.5}/>,
+                    title: 'Work Request',
+                    href: '/apps/dashboard',
+                    active: false,
+                    icon: <IconClipboardList size={20} strokeWidth={1.5} />,
+                    permissions: hasAnyPermission(['dashboard-access']),
+                },
+                {
+                    title: 'Work Order',
+                    href: '/apps/dashboard',
+                    active: false,
+                    icon: <IconTool size={20} strokeWidth={1.5} />,
+                    permissions: hasAnyPermission(['dashboard-access']),
+                },
+                {
+                    title: 'Preventive Maintenance',
+                    href: '/apps/dashboard',
+                    active: false,
+                    icon: <IconCalendarDue size={20} strokeWidth={1.5} />,
+                    permissions: hasAnyPermission(['dashboard-access']),
+                },
+                {
+                    title: 'Assets & Reliability',
+                    href: '/apps/dashboard',
+                    active: false,
+                    icon: <IconBuildingFactory2 size={20} strokeWidth={1.5} />,
+                    permissions: hasAnyPermission(['dashboard-access']),
+                },
+                {
+                    title: 'Spare Part Control',
+                    href: '/apps/dashboard',
+                    active: false,
+                    icon: <IconPackages size={20} strokeWidth={1.5} />,
+                    permissions: hasAnyPermission(['dashboard-access']),
+                },
+                {
+                    title: 'RCA & CAPA',
+                    href: '/apps/dashboard',
+                    active: false,
+                    icon: <IconActivityHeartbeat size={20} strokeWidth={1.5} />,
+                    permissions: hasAnyPermission(['dashboard-access']),
+                },
+                {
+                    title: 'Reports & KPI',
+                    href: '/apps/dashboard',
+                    active: false,
+                    icon: <IconReportAnalytics size={20} strokeWidth={1.5} />,
+                    permissions: hasAnyPermission(['dashboard-access']),
+                },
+            ],
+        },
+        {
+            title: 'Administration',
+            permissions: hasAnyPermission(['permissions-access']) || hasAnyPermission(['roles-access']) || hasAnyPermission(['users-access']),
+            details: [
+                {
+                    title: 'Hak Akses',
+                    href: '/apps/permissions',
+                    active: url.startsWith('/apps/permissions'),
+                    icon: <IconUserBolt size={20} strokeWidth={1.5} />,
                     permissions: hasAnyPermission(['permissions-access']),
                 },
                 {
-                    title : 'Akses Group',
-                    href : '/apps/roles',
-                    active: url.startsWith('/apps/roles') ? true : false,
-                    icon : <IconUserShield size={20} strokeWidth={1.5}/>,
-                    permissions:  hasAnyPermission(['roles-access']),
+                    title: 'Akses Group',
+                    href: '/apps/roles',
+                    active: url.startsWith('/apps/roles'),
+                    icon: <IconUserShield size={20} strokeWidth={1.5} />,
+                    permissions: hasAnyPermission(['roles-access']),
                 },
                 {
-                    title : 'Pengguna',
-                    icon : <IconUsers size={20} strokeWidth={1.5}/>,
+                    title: 'Pengguna',
+                    icon: <IconUsers size={20} strokeWidth={1.5} />,
                     permissions: hasAnyPermission(['users-access']),
                     subdetails: [
                         {
                             title: 'Data Pengguna',
                             href: '/apps/users',
-                            icon: <IconTable size={20} strokeWidth={1.5}/>,
-                            active: url === '/apps/users' ? true : false,
+                            icon: <IconAdjustments size={20} strokeWidth={1.5} />,
+                            active: url === '/apps/users',
                             permissions: hasAnyPermission(['users-data']),
                         },
-                        {
-                            title: 'Tambah Data Pengguna',
-                            href: '/apps/users/create',
-                            icon: <IconCirclePlus size={20} strokeWidth={1.5}/>,
-                            active: url === '/apps/users/create' ? true : false,
-                            permissions: hasAnyPermission(['users-create']),
-                        },
-                    ]
-                }
-            ]
-        }
-    ]
+                    ],
+                },
+            ],
+        },
+    ];
 
     return menuNavigation;
 }

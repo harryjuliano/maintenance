@@ -3,153 +3,152 @@ import Table from '@/Components/Table';
 import Widget from '@/Components/Widget';
 import AppLayout from '@/Layouts/AppLayout';
 import { Head } from '@inertiajs/react';
-import { IconBox,IconChartBar,IconPackage,IconUsers,IconWallet } from '@tabler/icons-react';
 import {
+    IconAlertTriangle,
+    IconChecklist,
+    IconClockHour4,
+    IconEngine,
+    IconGauge,
+    IconTool,
+} from '@tabler/icons-react';
+import {
+    ArcElement,
+    BarElement,
+    CategoryScale,
     Chart as ChartJS,
-    CategoryScale,
-    LinearScale,
-    BarElement,
-    Title,
-    Tooltip,
     Legend,
-} from 'chart.js';
-import { Bar } from 'react-chartjs-2';
-
-ChartJS.register(
-    CategoryScale,
     LinearScale,
-    BarElement,
     Title,
     Tooltip,
-    Legend
-);
-export default function Dashboard({ auth }) {
+} from 'chart.js';
+import { Bar, Doughnut } from 'react-chartjs-2';
 
-    const products = [
-        {
-            id: 1,
-            name: 'Buku Tulis Sidu',
-            stock: 5
-        },
-        {
-            id: 2,
-            name: 'Pulpen Pilot',
-            stock: 3
-        },
-        {
-            id: 3,
-            name: 'Shampo Metal Fortis',
-            stock: 2
-        },
-        {
-            id: 4,
-            name: 'Susu Ultra Milk',
-            stock: 4
-        }
-    ];
+ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Title, Tooltip, Legend);
 
-    const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
-    const data = {
-        labels,
+export default function Dashboard() {
+    const breakdownTrend = {
+        labels: ['Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar'],
         datasets: [
-          {
-            label: 'Buku Tulis Sidu',
-            data: labels.map((_, index) => (index + 1) * 2),
-            backgroundColor: 'rgba(255, 99, 132, 0.5)',
-          },
-          {
-            label: 'Pulpen Pilot',
-            data: labels.map((_, index) => (index + 1) * 3),
-            backgroundColor: 'rgba(53, 162, 235, 0.5)',
-          },
-          {
-            label: 'Shampo Metal Fortis',
-            data: labels.map((_, index) => (index + 1) * 4),
-            backgroundColor: 'rgba(0, 128, 0, 0.5)',
-          },
-          {
-            label: 'Susu Ultra Milk',
-            data: labels.map((_, index) => (index + 1) * 5),
-            backgroundColor: 'rgba(255, 165, 0, 0.5)',
-          },
+            {
+                label: 'Breakdown',
+                data: [21, 17, 14, 11, 7, 5],
+                backgroundColor: 'rgba(239, 68, 68, 0.6)',
+            },
+            {
+                label: 'Preventive WO Completed',
+                data: [36, 40, 43, 49, 56, 62],
+                backgroundColor: 'rgba(34, 197, 94, 0.6)',
+            },
         ],
     };
 
+    const issueComposition = {
+        labels: ['Mechanical', 'Electrical', 'Instrumentation', 'Utility', 'Others'],
+        datasets: [
+            {
+                label: 'Issue Type',
+                data: [42, 28, 12, 11, 7],
+                backgroundColor: ['#ef4444', '#f59e0b', '#3b82f6', '#14b8a6', '#8b5cf6'],
+            },
+        ],
+    };
+
+    const highPriorityOrders = [
+        { wo: 'WO-EMG-260301', asset: 'Filler Line 2', priority: 'Critical', status: 'In Progress', eta: '26 Mar 2026 14:00' },
+        { wo: 'WO-COR-260298', asset: 'Air Compressor A', priority: 'High', status: 'Waiting Spare Part', eta: '26 Mar 2026 16:00' },
+        { wo: 'WO-PM-260274', asset: 'Boiler Feed Pump', priority: 'High', status: 'Assigned', eta: '27 Mar 2026 09:00' },
+    ];
+
+    const pmDue = [
+        { asset: 'Cartoner #3', schedule: '26 Mar 2026', owner: 'Team B', type: 'Weekly PM' },
+        { asset: 'Chiller Unit #1', schedule: '27 Mar 2026', owner: 'Team Utility', type: 'Monthly PM' },
+        { asset: 'Palletizer #2', schedule: '28 Mar 2026', owner: 'Team C', type: 'Running Hour PM' },
+    ];
+
     return (
         <>
-            <Head title='Dashboard'/>
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
-                <Widget
-                    title={'Produk'}
-                    subtitle={'Total Produk'}
-                    color={'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-200'}
-                    icon={<IconBox size={'20'} strokeWidth={'1.5'}/>}
-                    total={40}
-                />
-                <Widget
-                    title={'Pendapatan'}
-                    subtitle={'Total Pendapatan Hari Ini'}
-                    color={'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-200'}
-                    icon={<IconWallet size={'20'} strokeWidth={'1.5'}/>}
-                    total={<><sup>Rp</sup> 1.000K</>}
-                />
-                <Widget
-                    title={'Pelanggan'}
-                    subtitle={'Total Pelanggan'}
-                    color={'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-200'}
-                    icon={<IconUsers size={'20'} strokeWidth={'1.5'}/>}
-                    total={4}
-                />
+            <Head title="Maintenance Operations Dashboard" />
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <Widget title="Asset Aktif" subtitle="Mesin siap operasi" color="bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-200" icon={<IconEngine size={20} strokeWidth={1.5} />} total={184} />
+                <Widget title="Open Work Order" subtitle="Backlog saat ini" color="bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-200" icon={<IconTool size={20} strokeWidth={1.5} />} total={37} />
+                <Widget title="PM Compliance" subtitle="Realisasi bulan berjalan" color="bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-200" icon={<IconChecklist size={20} strokeWidth={1.5} />} total={'94.8%'} />
+                <Widget title="Downtime (jam)" subtitle="Akumulasi bulan ini" color="bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-200" icon={<IconClockHour4 size={20} strokeWidth={1.5} />} total={42.6} />
             </div>
-            <div className='grid grid-cols-4 mt-5 gap-4 items-start'>
-                <div className='col-span-4 md:col-span-2'>
-                    <Table.Card
-                        title={'Data Produk Dengan Stok Dibawah Limit'}
-                        icon={<IconPackage size={20} strokeWidth={1.5}/>}
-                    >
-                        <Table>
-                            <Table.Thead>
-                                <tr>
-                                    <Table.Th className='w-10'>No</Table.Th>
-                                    <Table.Th>Nama Produk</Table.Th>
-                                    <Table.Th className={'text-center'}>Stok</Table.Th>
-                                </tr>
-                            </Table.Thead>
-                            <Table.Tbody>
-                                {products.map((product, i) => (
-                                    <tr className='hover:bg-gray-100 dark:hover:bg-gray-900' key={i}>
-                                        <Table.Td className='text-center'>
-                                            {++i}
-                                        </Table.Td>
-                                        <Table.Td>
-                                            {product.name}
-                                        </Table.Td>
-                                        <Table.Td className={'text-center'}>
-                                            <span className='rounded-full px-2.5 py-1 text-xs tracking-tight font-medium transition-colors focus:outline-none gap-1 capitalize border border-rose-500/40 bg-rose-500/10 text-rose-500 hover:bg-rose-500/20'>
-                                                {product.stock
-                                            }</span>
-                                        </Table.Td>
-                                    </tr>
-                                    ))
-                                }
-                            </Table.Tbody>
-                        </Table>
-                    </Table.Card>
-                </div>
-                <div className='col-span-4 md:col-span-2'>
-                    <div className={`p-4 rounded-t-lg border bg-white dark:bg-gray-950 dark:border-gray-900`}>
-                        <div className='flex items-center gap-2 font-semibold text-sm text-gray-700 dark:text-gray-200'>
-                            Grafik Penjualan Produk
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 mt-5 gap-4 items-start">
+                <div className="lg:col-span-2">
+                    <div className="p-4 rounded-t-lg border bg-white dark:bg-gray-950 dark:border-gray-900">
+                        <div className="flex items-center gap-2 font-semibold text-sm text-gray-700 dark:text-gray-200">
+                            <IconGauge size={18} strokeWidth={1.5} /> Trend Breakdown vs Preventive Completion
                         </div>
                     </div>
-                    <div className='p-4 rounded-b-lg border border-t-0 bg-white dark:bg-gray-950 dark:border-gray-900'>
-                        <Bar className='min-w-full' data={data} />
+                    <div className="p-4 rounded-b-lg border border-t-0 bg-white dark:bg-gray-950 dark:border-gray-900">
+                        <Bar className="min-w-full" data={breakdownTrend} />
                     </div>
                 </div>
+
+                <Card
+                    title={
+                        <div className="flex items-center gap-2">
+                            <IconAlertTriangle size={18} strokeWidth={1.5} /> Komposisi Gangguan
+                        </div>
+                    }
+                    footer={<span className="text-xs text-gray-500">Dominan: Mechanical (42%)</span>}
+                >
+                    <Doughnut data={issueComposition} />
+                </Card>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 mt-5 gap-4">
+                <Table.Card title="High Priority Work Order" icon={<IconTool size={20} strokeWidth={1.5} />}>
+                    <Table>
+                        <Table.Thead>
+                            <tr>
+                                <Table.Th>WO</Table.Th>
+                                <Table.Th>Asset</Table.Th>
+                                <Table.Th>Prioritas</Table.Th>
+                                <Table.Th>Status</Table.Th>
+                            </tr>
+                        </Table.Thead>
+                        <Table.Tbody>
+                            {highPriorityOrders.map((item) => (
+                                <tr key={item.wo} className="hover:bg-gray-100 dark:hover:bg-gray-900">
+                                    <Table.Td>{item.wo}</Table.Td>
+                                    <Table.Td>{item.asset}</Table.Td>
+                                    <Table.Td>{item.priority}</Table.Td>
+                                    <Table.Td>{item.status}</Table.Td>
+                                </tr>
+                            ))}
+                        </Table.Tbody>
+                    </Table>
+                </Table.Card>
+
+                <Table.Card title="PM Due & Reminder" icon={<IconChecklist size={20} strokeWidth={1.5} />}>
+                    <Table>
+                        <Table.Thead>
+                            <tr>
+                                <Table.Th>Asset</Table.Th>
+                                <Table.Th>Jadwal</Table.Th>
+                                <Table.Th>Tipe</Table.Th>
+                                <Table.Th>PIC</Table.Th>
+                            </tr>
+                        </Table.Thead>
+                        <Table.Tbody>
+                            {pmDue.map((item) => (
+                                <tr key={item.asset} className="hover:bg-gray-100 dark:hover:bg-gray-900">
+                                    <Table.Td>{item.asset}</Table.Td>
+                                    <Table.Td>{item.schedule}</Table.Td>
+                                    <Table.Td>{item.type}</Table.Td>
+                                    <Table.Td>{item.owner}</Table.Td>
+                                </tr>
+                            ))}
+                        </Table.Tbody>
+                    </Table>
+                </Table.Card>
             </div>
         </>
     );
 }
 
-Dashboard.layout = page => <AppLayout children={page}/>
+Dashboard.layout = (page) => <AppLayout children={page} />;

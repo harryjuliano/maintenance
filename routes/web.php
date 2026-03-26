@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Apps\DashboardController;
+use App\Http\Controllers\Apps\MaintenanceBlueprintController;
 use App\Http\Controllers\Apps\PermissionController;
 use App\Http\Controllers\Apps\RoleController;
 use App\Http\Controllers\Apps\UserController;
@@ -27,6 +28,7 @@ Route::middleware('auth')->group(function () {
 Route::group(['prefix' => 'apps', 'as' => 'apps.' , 'middleware' => ['auth']], function(){
     // dashboard route
     Route::get('/dashboard', DashboardController::class)->name('dashboard');
+    Route::get('/maintenance-blueprint', MaintenanceBlueprintController::class)->name('maintenance.blueprint');
     // permissions route
     Route::get('/permissions', PermissionController::class)->name('permissions.index');
     // roles route
