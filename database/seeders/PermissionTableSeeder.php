@@ -37,6 +37,24 @@ class PermissionTableSeeder extends Seeder
             'breakdowns-update',
             'breakdowns-delete',
 
+            'pm-schedulers-access',
+            'pm-schedulers-data',
+            'pm-schedulers-create',
+            'pm-schedulers-update',
+            'pm-schedulers-delete',
+
+            'inspection-checklists-access',
+            'inspection-checklists-data',
+            'inspection-checklists-create',
+            'inspection-checklists-update',
+            'inspection-checklists-delete',
+
+            'calibration-supports-access',
+            'calibration-supports-data',
+            'calibration-supports-create',
+            'calibration-supports-update',
+            'calibration-supports-delete',
+
             'users-access',
             'users-data',
             'users-create',

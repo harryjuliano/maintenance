@@ -25,7 +25,14 @@ const phases = [
     },
     {
         title: 'Fase 2 — Reliability',
-        items: ['PM scheduler', 'Inspection checklist', 'Downtime tracking', 'Spare part control', 'Notification'],
+        items: [
+            { label: 'PM scheduler', href: '/apps/pm-schedulers', status: 'started' },
+            { label: 'Inspection checklist', href: '/apps/inspection-checklists', status: 'started' },
+            { label: 'Calibration support', href: '/apps/calibration-supports', status: 'started' },
+            'Downtime tracking',
+            'Spare part control',
+            'Notification',
+        ],
     },
     {
         title: 'Fase 3 — Continuous Improvement',

@@ -45,7 +45,7 @@ export default function Menu() {
         },
         {
             title: 'Operations',
-            permissions: hasAnyPermission(['work-requests-access', 'work-orders-access', 'assets-access', 'breakdowns-access']),
+            permissions: hasAnyPermission(['work-requests-access', 'work-orders-access', 'assets-access', 'breakdowns-access', 'pm-schedulers-access', 'inspection-checklists-access', 'calibration-supports-access']),
             details: [
                 {
                     title: 'Breakdown Handling',
@@ -69,11 +69,25 @@ export default function Menu() {
                     permissions: hasAnyPermission(['work-orders-access']),
                 },
                 {
-                    title: 'Preventive Maintenance',
-                    href: '/apps/dashboard',
-                    active: false,
+                    title: 'PM Scheduler',
+                    href: '/apps/pm-schedulers',
+                    active: url.startsWith('/apps/pm-schedulers'),
                     icon: <IconCalendarDue size={20} strokeWidth={1.5} />,
-                    permissions: hasAnyPermission(['dashboard-access']),
+                    permissions: hasAnyPermission(['pm-schedulers-access']),
+                },
+                {
+                    title: 'Inspection Checklist',
+                    href: '/apps/inspection-checklists',
+                    active: url.startsWith('/apps/inspection-checklists'),
+                    icon: <IconClipboardList size={20} strokeWidth={1.5} />,
+                    permissions: hasAnyPermission(['inspection-checklists-access']),
+                },
+                {
+                    title: 'Calibration Support',
+                    href: '/apps/calibration-supports',
+                    active: url.startsWith('/apps/calibration-supports'),
+                    icon: <IconTool size={20} strokeWidth={1.5} />,
+                    permissions: hasAnyPermission(['calibration-supports-access']),
                 },
                 {
                     title: 'Assets & Reliability',
