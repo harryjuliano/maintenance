@@ -32,9 +32,9 @@ Route::group(['prefix' => 'apps', 'as' => 'apps.' , 'middleware' => ['auth']], f
     // dashboard route
     Route::get('/dashboard', DashboardController::class)->name('dashboard');
     Route::get('/maintenance-blueprint', MaintenanceBlueprintController::class)->name('maintenance.blueprint');
-    Route::get('/assets', AssetMasterController::class)->name('assets.index');
-    Route::get('/work-requests', WorkRequestController::class)->name('work-requests.index');
-    Route::get('/work-orders', WorkOrderController::class)->name('work-orders.index');
+    Route::resource('/assets', AssetMasterController::class)->except('show');
+    Route::resource('/work-requests', WorkRequestController::class)->except('show');
+    Route::resource('/work-orders', WorkOrderController::class)->except('show');
     // permissions route
     Route::get('/permissions', PermissionController::class)->name('permissions.index');
     // roles route
