@@ -2,9 +2,11 @@ import { usePage } from '@inertiajs/react';
 import {
     IconActivityHeartbeat,
     IconAdjustments,
+    IconAlertTriangle,
     IconBuildingFactory2,
     IconCalendarDue,
     IconClipboardList,
+    IconHistory,
     IconLayout2,
     IconPackages,
     IconReportAnalytics,
@@ -43,21 +45,28 @@ export default function Menu() {
         },
         {
             title: 'Operations',
-            permissions: hasAnyPermission(['dashboard-access']),
+            permissions: hasAnyPermission(['work-requests-access', 'work-orders-access', 'assets-access', 'breakdowns-access']),
             details: [
+                {
+                    title: 'Breakdown Handling',
+                    href: '/apps/breakdowns',
+                    active: url.startsWith('/apps/breakdowns'),
+                    icon: <IconAlertTriangle size={20} strokeWidth={1.5} />,
+                    permissions: hasAnyPermission(['breakdowns-access']),
+                },
                 {
                     title: 'Work Request',
                     href: '/apps/work-requests',
                     active: url.startsWith('/apps/work-requests'),
                     icon: <IconClipboardList size={20} strokeWidth={1.5} />,
-                    permissions: hasAnyPermission(['dashboard-access']),
+                    permissions: hasAnyPermission(['work-requests-access']),
                 },
                 {
                     title: 'Work Order',
                     href: '/apps/work-orders',
                     active: url.startsWith('/apps/work-orders'),
                     icon: <IconTool size={20} strokeWidth={1.5} />,
-                    permissions: hasAnyPermission(['dashboard-access']),
+                    permissions: hasAnyPermission(['work-orders-access']),
                 },
                 {
                     title: 'Preventive Maintenance',
@@ -71,7 +80,7 @@ export default function Menu() {
                     href: '/apps/assets',
                     active: url.startsWith('/apps/assets'),
                     icon: <IconBuildingFactory2 size={20} strokeWidth={1.5} />,
-                    permissions: hasAnyPermission(['dashboard-access']),
+                    permissions: hasAnyPermission(['assets-access']),
                 },
                 {
                     title: 'Spare Part Control',
@@ -98,7 +107,7 @@ export default function Menu() {
         },
         {
             title: 'Administration',
-            permissions: hasAnyPermission(['permissions-access']) || hasAnyPermission(['roles-access']) || hasAnyPermission(['users-access']),
+            permissions: hasAnyPermission(['permissions-access']) || hasAnyPermission(['roles-access']) || hasAnyPermission(['users-access']) || hasAnyPermission(['audit-trails-access']),
             details: [
                 {
                     title: 'Hak Akses',
@@ -113,6 +122,13 @@ export default function Menu() {
                     active: url.startsWith('/apps/roles'),
                     icon: <IconUserShield size={20} strokeWidth={1.5} />,
                     permissions: hasAnyPermission(['roles-access']),
+                },
+                {
+                    title: 'Audit Trail',
+                    href: '/apps/audit-trails',
+                    active: url.startsWith('/apps/audit-trails'),
+                    icon: <IconHistory size={20} strokeWidth={1.5} />,
+                    permissions: hasAnyPermission(['audit-trails-access']),
                 },
                 {
                     title: 'Pengguna',

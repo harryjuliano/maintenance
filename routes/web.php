@@ -1,13 +1,15 @@
 <?php
 
 use App\Http\Controllers\Apps\AssetMasterController;
+use App\Http\Controllers\Apps\AuditTrailController;
+use App\Http\Controllers\Apps\BreakdownController;
 use App\Http\Controllers\Apps\DashboardController;
 use App\Http\Controllers\Apps\MaintenanceBlueprintController;
 use App\Http\Controllers\Apps\PermissionController;
 use App\Http\Controllers\Apps\RoleController;
+use App\Http\Controllers\Apps\UserController;
 use App\Http\Controllers\Apps\WorkOrderController;
 use App\Http\Controllers\Apps\WorkRequestController;
-use App\Http\Controllers\Apps\UserController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -28,19 +30,20 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::group(['prefix' => 'apps', 'as' => 'apps.' , 'middleware' => ['auth']], function(){
-    // dashboard route
+Route::group(['prefix' => 'apps', 'as' => 'apps.', 'middleware' => ['auth']], function () {
     Route::get('/dashboard', DashboardController::class)->name('dashboard');
     Route::get('/maintenance-blueprint', MaintenanceBlueprintController::class)->name('maintenance.blueprint');
+
     Route::resource('/assets', AssetMasterController::class)->except('show');
     Route::resource('/work-requests', WorkRequestController::class)->except('show');
     Route::resource('/work-orders', WorkOrderController::class)->except('show');
-    // permissions route
+    Route::resource('/breakdowns', BreakdownController::class)->except('show');
+
     Route::get('/permissions', PermissionController::class)->name('permissions.index');
-    // roles route
     Route::resource('/roles', RoleController::class)->except(['create', 'edit', 'show']);
-    // users route
     Route::resource('/users', UserController::class)->except('show');
+
+    Route::resource('/audit-trails', AuditTrailController::class)->only(['index', 'destroy']);
 });
 
 require __DIR__.'/auth.php';

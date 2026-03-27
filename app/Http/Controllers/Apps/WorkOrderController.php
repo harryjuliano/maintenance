@@ -7,9 +7,23 @@ use App\Http\Requests\WorkOrderRequest;
 use App\Models\Asset;
 use App\Models\WorkOrder;
 use App\Models\WorkRequest;
+use App\Support\AuditTrailLogger;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class WorkOrderController extends Controller
+class WorkOrderController extends Controller implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('permission:work-orders-access'),
+            new Middleware('permission:work-orders-data', only: ['index']),
+            new Middleware('permission:work-orders-create', only: ['create', 'store']),
+            new Middleware('permission:work-orders-update', only: ['edit', 'update']),
+            new Middleware('permission:work-orders-delete', only: ['destroy']),
+        ];
+    }
+
     public function index()
     {
         $workOrders = WorkOrder::query()
@@ -20,9 +34,7 @@ class WorkOrderController extends Controller
             ->paginate(10)
             ->withQueryString();
 
-        return inertia('Apps/Maintenance/WorkOrders/Index', [
-            'workOrders' => $workOrders,
-        ]);
+        return inertia('Apps/Maintenance/WorkOrders/Index', ['workOrders' => $workOrders]);
     }
 
     public function create()
@@ -40,11 +52,13 @@ class WorkOrderController extends Controller
     {
         $asset = Asset::query()->findOrFail($request->asset_id);
 
-        WorkOrder::create([
+        $workOrder = WorkOrder::query()->create([
             ...$request->validated(),
             'area_id' => $asset->area_id,
             'production_line_id' => $asset->production_line_id,
         ]);
+
+        AuditTrailLogger::log('create', 'work_order', $workOrder, 'Create work order', ['work_order_no' => $workOrder->work_order_no]);
 
         return to_route('apps.work-orders.index');
     }
@@ -71,11 +85,15 @@ class WorkOrderController extends Controller
             'production_line_id' => $asset->production_line_id,
         ]);
 
+        AuditTrailLogger::log('update', 'work_order', $workOrder, 'Update work order', ['work_order_no' => $workOrder->work_order_no]);
+
         return to_route('apps.work-orders.index');
     }
 
     public function destroy(WorkOrder $workOrder)
     {
+        AuditTrailLogger::log('delete', 'work_order', $workOrder, 'Delete work order', ['work_order_no' => $workOrder->work_order_no]);
+
         $workOrder->delete();
 
         return back();
