@@ -47,7 +47,7 @@ export default function Menu() {
         },
         {
             title: 'Operations',
-            permissions: hasAnyPermission(['work-requests-access', 'work-orders-access', 'assets-access', 'breakdowns-access', 'pm-schedulers-access', 'inspection-checklists-access', 'calibration-supports-access', 'downtime-trackings-access', 'spare-parts-access', 'notifications-access', 'operational-reports-access']),
+            permissions: hasAnyPermission(['work-requests-access', 'work-orders-access', 'assets-access', 'breakdowns-access', 'pm-schedulers-access', 'inspection-checklists-access', 'calibration-supports-access', 'downtime-trackings-access', 'spare-parts-access', 'notifications-access', 'operational-reports-access', 'rca-capas-access', 'kpi-reliabilities-access', 'planner-calendars-access', 'mobile-technician-flows-access']),
             details: [
                 {
                     title: 'Breakdown Handling',
@@ -121,10 +121,31 @@ export default function Menu() {
                 },
                 {
                     title: 'RCA & CAPA',
-                    href: '/apps/dashboard',
-                    active: false,
+                    href: '/apps/rca-capas',
+                    active: url.startsWith('/apps/rca-capas'),
                     icon: <IconActivityHeartbeat size={20} strokeWidth={1.5} />,
-                    permissions: hasAnyPermission(['dashboard-access']),
+                    permissions: hasAnyPermission(['rca-capas-access']),
+                },
+                {
+                    title: 'KPI Reliability',
+                    href: '/apps/kpi-reliabilities',
+                    active: url.startsWith('/apps/kpi-reliabilities'),
+                    icon: <IconReportAnalytics size={20} strokeWidth={1.5} />,
+                    permissions: hasAnyPermission(['kpi-reliabilities-access']),
+                },
+                {
+                    title: 'Planner Calendar',
+                    href: '/apps/planner-calendars',
+                    active: url.startsWith('/apps/planner-calendars'),
+                    icon: <IconCalendarDue size={20} strokeWidth={1.5} />,
+                    permissions: hasAnyPermission(['planner-calendars-access']),
+                },
+                {
+                    title: 'Mobile Technician Flow',
+                    href: '/apps/mobile-technician-flows',
+                    active: url.startsWith('/apps/mobile-technician-flows'),
+                    icon: <IconTool size={20} strokeWidth={1.5} />,
+                    permissions: hasAnyPermission(['mobile-technician-flows-access']),
                 },
                 {
                     title: 'Reports & KPI',

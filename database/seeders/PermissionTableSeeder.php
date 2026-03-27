@@ -79,6 +79,30 @@ class PermissionTableSeeder extends Seeder
             'operational-reports-update',
             'operational-reports-delete',
 
+            'rca-capas-access',
+            'rca-capas-data',
+            'rca-capas-create',
+            'rca-capas-update',
+            'rca-capas-delete',
+
+            'kpi-reliabilities-access',
+            'kpi-reliabilities-data',
+            'kpi-reliabilities-create',
+            'kpi-reliabilities-update',
+            'kpi-reliabilities-delete',
+
+            'planner-calendars-access',
+            'planner-calendars-data',
+            'planner-calendars-create',
+            'planner-calendars-update',
+            'planner-calendars-delete',
+
+            'mobile-technician-flows-access',
+            'mobile-technician-flows-data',
+            'mobile-technician-flows-create',
+            'mobile-technician-flows-update',
+            'mobile-technician-flows-delete',
+
             'users-access',
             'users-data',
             'users-create',
