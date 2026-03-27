@@ -6,9 +6,23 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\WorkRequestRequest;
 use App\Models\Asset;
 use App\Models\WorkRequest;
+use App\Support\AuditTrailLogger;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class WorkRequestController extends Controller
+class WorkRequestController extends Controller implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('permission:work-requests-access'),
+            new Middleware('permission:work-requests-data', only: ['index']),
+            new Middleware('permission:work-requests-create', only: ['create', 'store']),
+            new Middleware('permission:work-requests-update', only: ['edit', 'update']),
+            new Middleware('permission:work-requests-delete', only: ['destroy']),
+        ];
+    }
+
     public function index()
     {
         $workRequests = WorkRequest::query()
@@ -34,7 +48,9 @@ class WorkRequestController extends Controller
 
     public function store(WorkRequestRequest $request)
     {
-        WorkRequest::create($request->validated());
+        $workRequest = WorkRequest::query()->create($request->validated());
+
+        AuditTrailLogger::log('create', 'work_request', $workRequest, 'Create work request', ['request_no' => $workRequest->request_no]);
 
         return to_route('apps.work-requests.index');
     }
@@ -53,11 +69,15 @@ class WorkRequestController extends Controller
     {
         $workRequest->update($request->validated());
 
+        AuditTrailLogger::log('update', 'work_request', $workRequest, 'Update work request', ['request_no' => $workRequest->request_no]);
+
         return to_route('apps.work-requests.index');
     }
 
     public function destroy(WorkRequest $workRequest)
     {
+        AuditTrailLogger::log('delete', 'work_request', $workRequest, 'Delete work request', ['request_no' => $workRequest->request_no]);
+
         $workRequest->delete();
 
         return back();

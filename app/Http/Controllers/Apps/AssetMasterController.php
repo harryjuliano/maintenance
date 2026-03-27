@@ -5,10 +5,24 @@ namespace App\Http\Controllers\Apps;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AssetRequest;
 use App\Models\Asset;
+use App\Support\AuditTrailLogger;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\DB;
 
-class AssetMasterController extends Controller
+class AssetMasterController extends Controller implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('permission:assets-access'),
+            new Middleware('permission:assets-data', only: ['index']),
+            new Middleware('permission:assets-create', only: ['create', 'store']),
+            new Middleware('permission:assets-update', only: ['edit', 'update']),
+            new Middleware('permission:assets-delete', only: ['destroy']),
+        ];
+    }
+
     public function index()
     {
         $assets = Asset::query()
@@ -17,9 +31,7 @@ class AssetMasterController extends Controller
             ->paginate(10)
             ->withQueryString();
 
-        return inertia('Apps/Maintenance/Assets/Index', [
-            'assets' => $assets,
-        ]);
+        return inertia('Apps/Maintenance/Assets/Index', ['assets' => $assets]);
     }
 
     public function create()
@@ -31,32 +43,36 @@ class AssetMasterController extends Controller
     {
         [$plantId, $areaId, $categoryId] = $this->ensureAssetMasterDependencies();
 
-        Asset::create([
+        $asset = Asset::query()->create([
             ...$request->validated(),
             'plant_id' => $plantId,
             'area_id' => $areaId,
             'asset_category_id' => $categoryId,
         ]);
 
+        AuditTrailLogger::log('create', 'asset', $asset, 'Create asset', ['asset_code' => $asset->asset_code]);
+
         return to_route('apps.assets.index');
     }
 
     public function edit(Asset $asset)
     {
-        return inertia('Apps/Maintenance/Assets/Edit', [
-            'asset' => $asset,
-        ]);
+        return inertia('Apps/Maintenance/Assets/Edit', ['asset' => $asset]);
     }
 
     public function update(AssetRequest $request, Asset $asset)
     {
         $asset->update($request->validated());
 
+        AuditTrailLogger::log('update', 'asset', $asset, 'Update asset', ['asset_code' => $asset->asset_code]);
+
         return to_route('apps.assets.index');
     }
 
     public function destroy(Asset $asset)
     {
+        AuditTrailLogger::log('delete', 'asset', $asset, 'Delete asset', ['asset_code' => $asset->asset_code]);
+
         $asset->delete();
 
         return back();

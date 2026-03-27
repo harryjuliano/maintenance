@@ -26,6 +26,13 @@ class WorkRequest extends Model
         'title',
         'description',
         'symptom',
+        'breakdown_start_at',
+        'affects_production',
+        'estimated_production_loss',
         'status',
+    ];
+
+    protected $casts = [
+        'affects_production' => 'boolean',
     ];
 }
