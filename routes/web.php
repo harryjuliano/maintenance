@@ -4,14 +4,17 @@ use App\Http\Controllers\Apps\AssetMasterController;
 use App\Http\Controllers\Apps\AuditTrailController;
 use App\Http\Controllers\Apps\BreakdownController;
 use App\Http\Controllers\Apps\CalibrationSupportController;
+use App\Http\Controllers\Apps\CrossSystemIntegrationController;
 use App\Http\Controllers\Apps\InspectionChecklistController;
 use App\Http\Controllers\Apps\KpiReliabilityController;
+use App\Http\Controllers\Apps\PredictiveMaintenanceReadinessController;
 use App\Http\Controllers\Apps\DashboardController;
 use App\Http\Controllers\Apps\DowntimeTrackingController;
 use App\Http\Controllers\Apps\MobileTechnicianFlowController;
 use App\Http\Controllers\Apps\NotificationController;
 use App\Http\Controllers\Apps\OperationalReportController;
 use App\Http\Controllers\Apps\PlannerCalendarController;
+use App\Http\Controllers\Apps\AdvancedReportingAnalyticController;
 use App\Http\Controllers\Apps\MaintenanceBlueprintController;
 use App\Http\Controllers\Apps\PermissionController;
 use App\Http\Controllers\Apps\PmSchedulerController;
@@ -60,6 +63,9 @@ Route::group(['prefix' => 'apps', 'as' => 'apps.', 'middleware' => ['auth']], fu
     Route::resource('/kpi-reliabilities', KpiReliabilityController::class)->except('show');
     Route::resource('/planner-calendars', PlannerCalendarController::class)->except('show');
     Route::resource('/mobile-technician-flows', MobileTechnicianFlowController::class)->except('show');
+    Route::resource('/predictive-maintenance-readinesses', PredictiveMaintenanceReadinessController::class)->except('show');
+    Route::resource('/cross-system-integrations', CrossSystemIntegrationController::class)->except('show');
+    Route::resource('/advanced-reporting-analytics', AdvancedReportingAnalyticController::class)->except('show');
 
     Route::get('/permissions', PermissionController::class)->name('permissions.index');
     Route::resource('/roles', RoleController::class)->except(['create', 'edit', 'show']);

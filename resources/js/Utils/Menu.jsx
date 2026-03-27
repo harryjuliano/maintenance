@@ -12,6 +12,9 @@ import {
     IconReportAnalytics,
     IconRouteAltLeft,
     IconTool,
+    IconPlugConnected,
+    IconCpu,
+    IconChartBarPopular,
     IconBell,
     IconClockPause,
     IconUserBolt,
@@ -47,7 +50,7 @@ export default function Menu() {
         },
         {
             title: 'Operations',
-            permissions: hasAnyPermission(['work-requests-access', 'work-orders-access', 'assets-access', 'breakdowns-access', 'pm-schedulers-access', 'inspection-checklists-access', 'calibration-supports-access', 'downtime-trackings-access', 'spare-parts-access', 'notifications-access', 'operational-reports-access', 'rca-capas-access', 'kpi-reliabilities-access', 'planner-calendars-access', 'mobile-technician-flows-access']),
+            permissions: hasAnyPermission(['work-requests-access', 'work-orders-access', 'assets-access', 'breakdowns-access', 'pm-schedulers-access', 'inspection-checklists-access', 'calibration-supports-access', 'downtime-trackings-access', 'spare-parts-access', 'notifications-access', 'operational-reports-access', 'rca-capas-access', 'kpi-reliabilities-access', 'planner-calendars-access', 'mobile-technician-flows-access', 'predictive-maintenance-readinesses-access', 'cross-system-integrations-access', 'advanced-reporting-analytics-access']),
             details: [
                 {
                     title: 'Breakdown Handling',
@@ -146,6 +149,27 @@ export default function Menu() {
                     active: url.startsWith('/apps/mobile-technician-flows'),
                     icon: <IconTool size={20} strokeWidth={1.5} />,
                     permissions: hasAnyPermission(['mobile-technician-flows-access']),
+                },
+                {
+                    title: 'Predictive Readiness',
+                    href: '/apps/predictive-maintenance-readinesses',
+                    active: url.startsWith('/apps/predictive-maintenance-readinesses'),
+                    icon: <IconCpu size={20} strokeWidth={1.5} />,
+                    permissions: hasAnyPermission(['predictive-maintenance-readinesses-access']),
+                },
+                {
+                    title: 'Integrasi Lintas Sistem',
+                    href: '/apps/cross-system-integrations',
+                    active: url.startsWith('/apps/cross-system-integrations'),
+                    icon: <IconPlugConnected size={20} strokeWidth={1.5} />,
+                    permissions: hasAnyPermission(['cross-system-integrations-access']),
+                },
+                {
+                    title: 'Advanced Analytics',
+                    href: '/apps/advanced-reporting-analytics',
+                    active: url.startsWith('/apps/advanced-reporting-analytics'),
+                    icon: <IconChartBarPopular size={20} strokeWidth={1.5} />,
+                    permissions: hasAnyPermission(['advanced-reporting-analytics-access']),
                 },
                 {
                     title: 'Reports & KPI',

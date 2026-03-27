@@ -75,4 +75,6 @@ php artisan serve
 - Reliability KPI lanjutan
 - Planner calendar
 - Mobile flow teknisi
+- Predictive maintenance readiness
 - Integrasi lintas sistem
+- Advanced reporting & analytics

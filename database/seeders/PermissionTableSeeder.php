@@ -103,6 +103,24 @@ class PermissionTableSeeder extends Seeder
             'mobile-technician-flows-update',
             'mobile-technician-flows-delete',
 
+            'predictive-maintenance-readinesses-access',
+            'predictive-maintenance-readinesses-data',
+            'predictive-maintenance-readinesses-create',
+            'predictive-maintenance-readinesses-update',
+            'predictive-maintenance-readinesses-delete',
+
+            'cross-system-integrations-access',
+            'cross-system-integrations-data',
+            'cross-system-integrations-create',
+            'cross-system-integrations-update',
+            'cross-system-integrations-delete',
+
+            'advanced-reporting-analytics-access',
+            'advanced-reporting-analytics-data',
+            'advanced-reporting-analytics-create',
+            'advanced-reporting-analytics-update',
+            'advanced-reporting-analytics-delete',
+
             'users-access',
             'users-data',
             'users-create',
