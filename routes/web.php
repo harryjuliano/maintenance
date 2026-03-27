@@ -3,9 +3,12 @@
 use App\Http\Controllers\Apps\AssetMasterController;
 use App\Http\Controllers\Apps\AuditTrailController;
 use App\Http\Controllers\Apps\BreakdownController;
+use App\Http\Controllers\Apps\CalibrationSupportController;
+use App\Http\Controllers\Apps\InspectionChecklistController;
 use App\Http\Controllers\Apps\DashboardController;
 use App\Http\Controllers\Apps\MaintenanceBlueprintController;
 use App\Http\Controllers\Apps\PermissionController;
+use App\Http\Controllers\Apps\PmSchedulerController;
 use App\Http\Controllers\Apps\RoleController;
 use App\Http\Controllers\Apps\UserController;
 use App\Http\Controllers\Apps\WorkOrderController;
@@ -38,6 +41,9 @@ Route::group(['prefix' => 'apps', 'as' => 'apps.', 'middleware' => ['auth']], fu
     Route::resource('/work-requests', WorkRequestController::class)->except('show');
     Route::resource('/work-orders', WorkOrderController::class)->except('show');
     Route::resource('/breakdowns', BreakdownController::class)->except('show');
+    Route::resource('/pm-schedulers', PmSchedulerController::class)->except('show');
+    Route::resource('/inspection-checklists', InspectionChecklistController::class)->except('show');
+    Route::resource('/calibration-supports', CalibrationSupportController::class)->except('show');
 
     Route::get('/permissions', PermissionController::class)->name('permissions.index');
     Route::resource('/roles', RoleController::class)->except(['create', 'edit', 'show']);

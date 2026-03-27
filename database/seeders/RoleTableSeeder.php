@@ -14,7 +14,7 @@ class RoleTableSeeder extends Seeder
             'users-access' => ['users-%'],
             'roles-access' => ['roles-%'],
             'permission-access' => ['permissions-%'],
-            'maintenance-access' => ['dashboard-%', 'assets-%', 'work-requests-%', 'work-orders-%', 'breakdowns-%'],
+            'maintenance-access' => ['dashboard-%', 'assets-%', 'work-requests-%', 'work-orders-%', 'breakdowns-%', 'pm-schedulers-%', 'inspection-checklists-%', 'calibration-supports-%'],
             'audit-access' => ['audit-trails-%'],
         ];
 
