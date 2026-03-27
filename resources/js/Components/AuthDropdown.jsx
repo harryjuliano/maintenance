@@ -108,7 +108,7 @@ export default function AuthDropdown({auth, isMobile}) {
                         <div className="w-full flex flex-col overflow-y-auto">
                             {menuNavigation.map((item, index) => (
                                 <div key={index}>
-                                    <div className="text-gray-500 text-xs py-3 px-4 font-bold uppercase">
+                                    <div className="text-gray-500 text-xs py-3 px-4 font-bold uppercase whitespace-normal break-words leading-relaxed">
                                         {item.title}
                                     </div>
                                     {item.details.map((detail, indexDetail) => (
