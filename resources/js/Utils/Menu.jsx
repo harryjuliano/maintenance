@@ -12,6 +12,8 @@ import {
     IconReportAnalytics,
     IconRouteAltLeft,
     IconTool,
+    IconBell,
+    IconClockPause,
     IconUserBolt,
     IconUserShield,
     IconUsers,
@@ -45,7 +47,7 @@ export default function Menu() {
         },
         {
             title: 'Operations',
-            permissions: hasAnyPermission(['work-requests-access', 'work-orders-access', 'assets-access', 'breakdowns-access', 'pm-schedulers-access', 'inspection-checklists-access', 'calibration-supports-access']),
+            permissions: hasAnyPermission(['work-requests-access', 'work-orders-access', 'assets-access', 'breakdowns-access', 'pm-schedulers-access', 'inspection-checklists-access', 'calibration-supports-access', 'downtime-trackings-access', 'spare-parts-access', 'notifications-access', 'operational-reports-access']),
             details: [
                 {
                     title: 'Breakdown Handling',
@@ -97,11 +99,25 @@ export default function Menu() {
                     permissions: hasAnyPermission(['assets-access']),
                 },
                 {
+                    title: 'Downtime Tracking',
+                    href: '/apps/downtime-trackings',
+                    active: url.startsWith('/apps/downtime-trackings'),
+                    icon: <IconClockPause size={20} strokeWidth={1.5} />,
+                    permissions: hasAnyPermission(['downtime-trackings-access']),
+                },
+                {
                     title: 'Spare Part Control',
-                    href: '/apps/dashboard',
-                    active: false,
+                    href: '/apps/spare-parts',
+                    active: url.startsWith('/apps/spare-parts'),
                     icon: <IconPackages size={20} strokeWidth={1.5} />,
-                    permissions: hasAnyPermission(['dashboard-access']),
+                    permissions: hasAnyPermission(['spare-parts-access']),
+                },
+                {
+                    title: 'Notification',
+                    href: '/apps/notifications',
+                    active: url.startsWith('/apps/notifications'),
+                    icon: <IconBell size={20} strokeWidth={1.5} />,
+                    permissions: hasAnyPermission(['notifications-access']),
                 },
                 {
                     title: 'RCA & CAPA',
@@ -112,10 +128,10 @@ export default function Menu() {
                 },
                 {
                     title: 'Reports & KPI',
-                    href: '/apps/dashboard',
-                    active: false,
+                    href: '/apps/operational-reports',
+                    active: url.startsWith('/apps/operational-reports'),
                     icon: <IconReportAnalytics size={20} strokeWidth={1.5} />,
-                    permissions: hasAnyPermission(['dashboard-access']),
+                    permissions: hasAnyPermission(['operational-reports-access']),
                 },
             ],
         },

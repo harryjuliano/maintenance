@@ -55,6 +55,30 @@ class PermissionTableSeeder extends Seeder
             'calibration-supports-update',
             'calibration-supports-delete',
 
+            'downtime-trackings-access',
+            'downtime-trackings-data',
+            'downtime-trackings-create',
+            'downtime-trackings-update',
+            'downtime-trackings-delete',
+
+            'spare-parts-access',
+            'spare-parts-data',
+            'spare-parts-create',
+            'spare-parts-update',
+            'spare-parts-delete',
+
+            'notifications-access',
+            'notifications-data',
+            'notifications-create',
+            'notifications-update',
+            'notifications-delete',
+
+            'operational-reports-access',
+            'operational-reports-data',
+            'operational-reports-create',
+            'operational-reports-update',
+            'operational-reports-delete',
+
             'users-access',
             'users-data',
             'users-create',
