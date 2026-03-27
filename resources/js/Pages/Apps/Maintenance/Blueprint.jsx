@@ -36,7 +36,15 @@ const phases = [
     },
     {
         title: 'Fase 3 — Continuous Improvement',
-        items: ['RCA & CAPA', 'KPI reliability', 'Planner calendar', 'Mobile technician flow', 'Integrasi lintas sistem'],
+        items: [
+            { label: 'RCA & CAPA', href: '/apps/rca-capas', status: 'started' },
+            { label: 'KPI reliability', href: '/apps/kpi-reliabilities', status: 'started' },
+            { label: 'Planner calendar', href: '/apps/planner-calendars', status: 'started' },
+            { label: 'Mobile technician flow', href: '/apps/mobile-technician-flows', status: 'started' },
+            { label: 'Predictive maintenance readiness', href: '/apps/predictive-maintenance-readinesses', status: 'started' },
+            { label: 'Integrasi lintas sistem', href: '/apps/cross-system-integrations', status: 'started' },
+            { label: 'Advanced reporting & analytics', href: '/apps/advanced-reporting-analytics', status: 'started' },
+        ],
     },
 ];
 
