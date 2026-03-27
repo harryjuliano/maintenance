@@ -5,13 +5,17 @@ use App\Http\Controllers\Apps\AuditTrailController;
 use App\Http\Controllers\Apps\BreakdownController;
 use App\Http\Controllers\Apps\CalibrationSupportController;
 use App\Http\Controllers\Apps\InspectionChecklistController;
+use App\Http\Controllers\Apps\KpiReliabilityController;
 use App\Http\Controllers\Apps\DashboardController;
 use App\Http\Controllers\Apps\DowntimeTrackingController;
+use App\Http\Controllers\Apps\MobileTechnicianFlowController;
 use App\Http\Controllers\Apps\NotificationController;
 use App\Http\Controllers\Apps\OperationalReportController;
+use App\Http\Controllers\Apps\PlannerCalendarController;
 use App\Http\Controllers\Apps\MaintenanceBlueprintController;
 use App\Http\Controllers\Apps\PermissionController;
 use App\Http\Controllers\Apps\PmSchedulerController;
+use App\Http\Controllers\Apps\RcaCapaController;
 use App\Http\Controllers\Apps\RoleController;
 use App\Http\Controllers\Apps\SparePartControlController;
 use App\Http\Controllers\Apps\UserController;
@@ -52,6 +56,10 @@ Route::group(['prefix' => 'apps', 'as' => 'apps.', 'middleware' => ['auth']], fu
     Route::resource('/spare-parts', SparePartControlController::class)->except('show');
     Route::resource('/notifications', NotificationController::class)->except('show');
     Route::resource('/operational-reports', OperationalReportController::class)->except('show');
+    Route::resource('/rca-capas', RcaCapaController::class)->except('show');
+    Route::resource('/kpi-reliabilities', KpiReliabilityController::class)->except('show');
+    Route::resource('/planner-calendars', PlannerCalendarController::class)->except('show');
+    Route::resource('/mobile-technician-flows', MobileTechnicianFlowController::class)->except('show');
 
     Route::get('/permissions', PermissionController::class)->name('permissions.index');
     Route::resource('/roles', RoleController::class)->except(['create', 'edit', 'show']);
