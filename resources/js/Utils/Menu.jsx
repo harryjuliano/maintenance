@@ -47,15 +47,15 @@ export default function Menu() {
             details: [
                 {
                     title: 'Work Request',
-                    href: '/apps/dashboard',
-                    active: false,
+                    href: '/apps/work-requests',
+                    active: url.startsWith('/apps/work-requests'),
                     icon: <IconClipboardList size={20} strokeWidth={1.5} />,
                     permissions: hasAnyPermission(['dashboard-access']),
                 },
                 {
                     title: 'Work Order',
-                    href: '/apps/dashboard',
-                    active: false,
+                    href: '/apps/work-orders',
+                    active: url.startsWith('/apps/work-orders'),
                     icon: <IconTool size={20} strokeWidth={1.5} />,
                     permissions: hasAnyPermission(['dashboard-access']),
                 },
@@ -68,8 +68,8 @@ export default function Menu() {
                 },
                 {
                     title: 'Assets & Reliability',
-                    href: '/apps/dashboard',
-                    active: false,
+                    href: '/apps/assets',
+                    active: url.startsWith('/apps/assets'),
                     icon: <IconBuildingFactory2 size={20} strokeWidth={1.5} />,
                     permissions: hasAnyPermission(['dashboard-access']),
                 },

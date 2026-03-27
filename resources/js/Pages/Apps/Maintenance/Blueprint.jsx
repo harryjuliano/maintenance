@@ -1,5 +1,5 @@
 import AppLayout from '@/Layouts/AppLayout';
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 
 const domains = [
     'Asset & Equipment Management',
@@ -15,7 +15,13 @@ const domains = [
 const phases = [
     {
         title: 'Fase 1 — Foundation',
-        items: ['Asset master', 'Work request', 'Work order', 'Dashboard dasar', 'Role access'],
+        items: [
+            { label: 'Asset master', href: '/apps/assets', status: 'started' },
+            { label: 'Work request', href: '/apps/work-requests', status: 'started' },
+            { label: 'Work order', href: '/apps/work-orders', status: 'started' },
+            { label: 'Dashboard dasar', status: 'done' },
+            { label: 'Role access', status: 'done' },
+        ],
     },
     {
         title: 'Fase 2 — Reliability',
@@ -87,7 +93,17 @@ export default function Blueprint() {
                                 <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-100">{phase.title}</h3>
                                 <ul className="text-sm mt-2 space-y-1 list-disc list-inside text-gray-700 dark:text-gray-300">
                                     {phase.items.map((item) => (
-                                        <li key={item}>{item}</li>
+                                        <li key={typeof item === 'string' ? item : item.label}>
+                                            {typeof item === 'string' ? (
+                                                item
+                                            ) : item.href ? (
+                                                <Link href={item.href} className="text-sky-600 hover:text-sky-500 dark:text-sky-400">
+                                                    {item.label} {item.status === 'started' ? '(in progress)' : ''}
+                                                </Link>
+                                            ) : (
+                                                `${item.label} ${item.status === 'done' ? '(available)' : ''}`
+                                            )}
+                                        </li>
                                     ))}
                                 </ul>
                             </div>

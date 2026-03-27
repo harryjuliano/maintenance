@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Controllers\Apps\AssetMasterController;
 use App\Http\Controllers\Apps\DashboardController;
 use App\Http\Controllers\Apps\MaintenanceBlueprintController;
 use App\Http\Controllers\Apps\PermissionController;
 use App\Http\Controllers\Apps\RoleController;
+use App\Http\Controllers\Apps\WorkOrderController;
+use App\Http\Controllers\Apps\WorkRequestController;
 use App\Http\Controllers\Apps\UserController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -29,6 +32,9 @@ Route::group(['prefix' => 'apps', 'as' => 'apps.' , 'middleware' => ['auth']], f
     // dashboard route
     Route::get('/dashboard', DashboardController::class)->name('dashboard');
     Route::get('/maintenance-blueprint', MaintenanceBlueprintController::class)->name('maintenance.blueprint');
+    Route::resource('/assets', AssetMasterController::class)->except('show');
+    Route::resource('/work-requests', WorkRequestController::class)->except('show');
+    Route::resource('/work-orders', WorkOrderController::class)->except('show');
     // permissions route
     Route::get('/permissions', PermissionController::class)->name('permissions.index');
     // roles route
